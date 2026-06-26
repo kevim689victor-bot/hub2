@@ -1,0 +1,488 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: black;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* LAYOUT */
+.layout {
+  display: flex;
+}
+
+/* ==========================================================================
+   BOTÕES DE CONTROLE DA SIDEBAR (PC e Padrão)
+   ========================================================================== */
+.sidebar-toggle {
+  position: fixed;
+  top: 15px;
+  left: 275px; /* Alinhado ao lado da sidebar de 260px */
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 10px;
+  background: #f4c430;
+  color: black;
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 9999;
+  transition: left .4s ease, transform .3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-toggle:hover {
+  transform: scale(1.08);
+}
+
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.60);
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+  backdrop-filter: blur(10px);
+  transition: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-btn:hover {
+  transform: scale(1.08);
+  background: rgba(255,255,255,0.10);
+}
+
+/* ========================= */
+/* SIDEBAR */
+/* ========================= */
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #0a0a0a;
+  border-right: 1px solid rgba(255, 255, 255, .08);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: transform .4s ease;
+}
+
+.sidebar.hidden {
+  transform: translateX(-100%);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  transition: .25s;
+}
+
+.nav-item img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, .05);
+  transform: translateX(5px);
+}
+
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 4px solid white;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  transition: .5s;
+}
+
+.main-content.full {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* ========================================= */
+/* HERO & SLIDESHOW (10 IMAGENS) */
+/* ========================================= */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-slideshow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0; 
+  z-index: -10;
+  animation: slideshowDeDez 40s infinite ease-in-out;
+}
+
+.hero-slide:nth-child(1)  { animation-delay: 0s; }
+.hero-slide:nth-child(2)  { animation-delay: 4s; }
+.hero-slide:nth-child(3)  { animation-delay: 8s; }
+.hero-slide:nth-child(4)  { animation-delay: 12s; }
+.hero-slide:nth-child(5)  { animation-delay: 16s; }
+.hero-slide:nth-child(6)  { animation-delay: 20s; }
+.hero-slide:nth-child(7)  { animation-delay: 24s; }
+.hero-slide:nth-child(8)  { animation-delay: 28s; }
+.hero-slide:nth-child(9)  { animation-delay: 32s; }
+.hero-slide:nth-child(10) { animation-delay: 36s; }
+
+@keyframes slideshowDeDez {
+  0% { opacity: 0; }
+  2% { opacity: 1; }
+  10% { opacity: 1; }
+  12% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+/* HERO CONTENT */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.hero-content h1 {
+  font-size: 6rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.hero-content p {
+  font-size: 1.4rem;
+  max-width: 800px;
+  margin-bottom: 40px;
+  color: #ddd;
+}
+
+/* BOTÕES HERO */
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.hero-buttons a {
+  text-decoration: none;
+  color: white;
+  padding: 16px 28px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  transition: .3s;
+}
+
+.hero-buttons a:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* FEATURED */
+.featured {
+  padding: 100px 60px;
+  background: #0b0b0b;
+}
+
+.featured h2 {
+  font-size: 3rem;
+  margin-bottom: 50px;
+}
+
+/* GRID DE CARDS */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 35px;
+}
+
+/* CARD */
+.featured-card {
+  position: relative;
+  height: 320px;
+  border-radius: 26px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  align-items: end;
+  padding: 35px;
+  transition: .5s;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.featured-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 26px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25),
+    transparent,
+    rgba(255, 255, 255, 0.10)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* FUNDO DOS CARDS */
+.card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .8s ease, filter .8s ease;
+}
+
+.card-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, .90), rgba(0, 0, 0, .20));
+}
+
+/* GALERIA HOVER DOS CARDS */
+.hover-gallery {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hover-img {
+  position: absolute;
+  bottom: 0;
+  left: -1px;
+  width: 110%;
+  height: 115%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease, transform 1s ease, left 1s ease;
+}
+
+.featured-card:hover .hover-img {
+  left: 0;
+}
+
+.featured-card:hover .hover-img:nth-child(1) { animation: show1 9s infinite; }
+.featured-card:hover .hover-img:nth-child(2) { animation: show2 9s infinite; }
+.featured-card:hover .hover-img:nth-child(3) { animation: show3 9s infinite; }
+
+@keyframes show1 {
+  0% { opacity: 1; transform: scale(1); }
+  28% { opacity: 1; }
+  33% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes show2 {
+  0% { opacity: 0; }
+  33% { opacity: 1; transform: scale(1); }
+  61% { opacity: 1; }
+  66% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes show3 {
+  0% { opacity: 0; }
+  66% { opacity: 1; transform: scale(1); }
+  95% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* TEXTO DO CARD */
+.card-content {
+  position: relative;
+  z-index: 3;
+}
+
+.card-content h3 {
+  font-size: 2.8rem;
+  color: white;
+  text-shadow: 0 0 15px rgba(0, 0, 0, .7);
+}
+
+.featured-card:hover {
+  transform: translateY(-12px) scale(1.02);
+}
+
+.featured-card:hover .card-bg {
+  transform: scale(1.12);
+  filter: brightness(1.1);
+}
+
+/* IMAGENS DE CARDS */
+.gta { background-image: url("imagens/gtav.png"); }
+.mario { background-image: url("imagens/mariohome.jpg"); }
+.fnaf { background-image: url("imagens/fnafhome.jpg"); }
+.re { background-image: url("imagens/rehome.jpg"); }
+.sekiro { background-image: url("imagens/sekirohome.jpg"); }
+.ff { background-image: url("imagens/ffhome.jpg"); }
+.minecraft { background-image: url("imagens/minehome.jpg"); }
+.zelda { background-image: url("imagens/zeldahome.jpg"); }
+.pokemon { background-image: url("imagens/pokemonhome.jpg"); }
+.onepiece { background-image: url("imagens/ophome.jpg"); }
+
+/* ==========================================================================
+   BLOCO DE RESPONSIVIDADE MOBILE (TELAS ATÉ 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  
+  body {
+    overflow-x: hidden !important;
+  }
+
+  /* AJUSTE DOS BOTÕES DE SIDEBAR NO MOBILE */
+  .sidebar-toggle, .toggle-btn {
+    left: 20px !important;
+    top: 20px !important;
+    z-index: 10001 !important;
+  }
+
+  .sidebar {
+    position: fixed !important;
+    width: 260px !important;
+    height: 100vh !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 10000 !important;
+    transform: translateX(-100%) !important;
+    transition: transform .4s ease !important;
+  }
+
+  /* Faz a barra aparecer se o JS injetar classe de ativo */
+  .sidebar.active, .sidebar:not(.hidden) {
+    transform: translateX(0) !important;
+  }
+
+  .main-content, .main-content.full {
+    margin-left: 0 !important;
+    width: 100% !important;
+    transition: none !important;
+  }
+
+  /* HERO ADAPTADO */
+  .hero-content {
+    padding: 20px !important;
+    justify-content: center !important;
+  }
+
+  .hero-content h1 {
+    font-size: 2.8rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 15px !important;
+  }
+
+  .hero-content p {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 30px !important;
+    padding: 0 10px !important;
+  }
+
+  .hero-buttons {
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    gap: 12px !important;
+  }
+
+  .hero-buttons a {
+    display: block !important;
+    text-align: center !important;
+    padding: 14px 20px !important;
+    font-size: 1rem !important;
+  }
+
+  /* GRID DE JOGOS EM FILA ÚNICA */
+  .featured {
+    padding: 50px 20px !important;
+  }
+
+  .featured h2 {
+    font-size: 2rem !important;
+    text-align: center !important;
+    margin-bottom: 35px !important;
+  }
+
+  .featured-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .featured-card {
+    height: 260px !important;
+    padding: 20px !important;
+    border-radius: 20px !important;
+  }
+
+  .featured-card::before {
+    border-radius: 20px !important;
+  }
+
+  .card-content h3 {
+    font-size: 1.8rem !important;
+  }
+}
